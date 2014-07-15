@@ -5,7 +5,7 @@
 [公司技术部架构实践](company)
 
 ## 文章
-[如何使用兼职](article/Part-time_job)
+[如何使用兼职](article/Part-time_job.md)
 
 ## 附录
 makedown语法:[简体中文](http://wowubuntu.com/markdown/) [繁体中文](http://markdown.tw/)
