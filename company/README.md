@@ -14,57 +14,65 @@
     事务脚本，表模块，领域模型
 
 ## 模块化
-    ### php
-    	1）基于composer来管理项目依赖。
-		2）Git submodule 来进行公司级别公共库管理。 
-        3）用于不可改变的库，这些库包括第三方与公司。
-	### javascript
-    	1）bower管理
-        2）基于CMD或AMD
-    ### css
+
+### php
+1）基于composer来管理项目依赖。
+2）Git submodule 来进行公司级别公共库管理。 
+3）用于不可改变的库，这些库包括第三方与公司。
+
+### javascript
+1）bower管理
+2）基于CMD或AMD
+
+### css
 
 ## 代码实践
+
 ### 编码
+
 #### 层次关系
-    服务层 领域层 基础设施层 物理层
-    Domain与DataMapper 如何组合
+服务层 领域层 基础设施层 物理层
+Domain与DataMapper 如何组合
+
 #### 风格及实践
-        基于psr0-3的代码命名及编写方式
-        [如何编码](code/HowToCoding.md)
-        包管理工具composer 
-        基于composer的公司目录结构及开发技巧
-	    如何编码：
-        
-        用自然语言的写出限制条件，归纳限制条件，将其转化为函数，置入合适的数据结构中。
-        分析动作（交互），转化为函数，置入合适的数据结构。
-		简化。
-		编写测试。
-		编码。
-		Ajax建立统一的错误处理及数据返回标准。
-		增删改查 一次处理的情况 多次处理情况 直接刷新情况  参数存在与否
+基于psr0-3的代码命名及编写方式
+[如何编码](code/HowToCoding.md)
+包管理工具composer 
+基于composer的公司目录结构及开发技巧
+如何编码：
+    用自然语言的写出限制条件，归纳限制条件，将其转化为函数，置入合适的数据结构中。
+    分析动作（交互），转化为函数，置入合适的数据结构。
+    简化。
+    编写测试。
+    编码。
+    Ajax建立统一的错误处理及数据返回标准。
+    增删改查 一次处理的情况 多次处理情况 直接刷新情况  参数存在与否
        
 ## 模块复用
-	Zf2 module系统。
-	自有的php库。
-## 部署
-	Nodejs 开发的脚本包
-## 开发者工具
-	Redmine，bugzilla。
-	如果有二者的结合体更佳。
-	用wiki编写文档
+Zf2 module系统。
+自有的php库。
+
 ## 测试
-	travis-ci.org 自动化跑脚本
-    单元测试
-    自动化测试
+
+
+## 部署
+Nodejs 开发的脚本包
+
+## 开发者工具
+
+### 项目管理工具
+    Redmine Bugzilla
+
+### 持续集成工具
+
+### 文档工具
+用wiki编写文档 
+
+### 测试工具
+travis-ci.org 自动化跑脚本
+单元测试
+自动化测试
+
 ## 一些通用库
-## use case
-    新建Scheduling项目
-        初始化
-            利用composer 安装 zf2 2.*版本。
-            建立文件夹public/css,js.img。
-            使用git submodule 加入 _cjs > public/js/_cjs, _zfCommon > vendor/Common。
-            .gitignore略过 vendor, public/_cjs
-    加入.travis.yml用来触发自动化测试
-        待试验的
-            自己的common如何与别人的common共存。
-            使用别人的zf2 module
+
+## Use case
