@@ -1,0 +1,104 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html ng-app="DemoApp">
+    <head>
+        <title>Test waikiki</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="angular.min.js"></script>
+    </head>
+    <body style="width: 100%;">
+        <div>
+            <h2>测试Service是闭包时候 注入到多个controller中 变量值维持的问题</h2>
+            <div ng-controller="AlertController">
+            <button ng-click="alert()">alert</button>
+            
+            </div>
+            <div ng-controller="AlertExController">
+                <button ng-click="alert()">alertEx</button>
+            </div>
+        </div>
+        
+        <div>
+            <h2>测试model</h2>
+            <div ng-controller="UserController">
+                <form>
+                    name: <input ng-model="user.name"/> role:<input ng-model="user.role"/> 
+                    <button ng-click="addUser(user)">add</button>
+                    <ol class="user_box">
+                        <li ng-repeat="cuser in users">
+                            name: {{cuser.name}} role: {{cuser.rorle}} isAdmin: {{cuser.isAdmin()}}
+                        </li>
+                    </ol>
+                </form>
+            </div>
+        </div>
+        
+        
+        <script>
+            var DemoApp = angular.module('DemoApp', []);
+            
+            DemoApp.factory('alert',['$window',function($window){
+                var count = 0;
+                return function(){
+                    count++;
+                    $window.alert(count);
+                };
+            }]);
+            /////////////////开始闭包测试///////////////
+            var AlertController = function(alert, $scope, $window){
+                $scope.alert = function(){
+                    alert();
+                };
+            };
+            AlertController.$inject = ['alert', '$scope', '$window'];
+//            
+            var AlertExController = function(alert, $scope, $window){
+                $scope.alert = function(){
+                    alert();
+                };
+            };
+            AlertExController.$inject = ['alert', '$scope', '$window'];
+            
+            DemoApp.controller('AlertController', AlertController);
+            DemoApp.controller('AlertExController', AlertExController);
+            /////////////////结束闭包测试///////////////
+            
+            ////////////////开始model测试//////////////
+            var User = function(name, role){
+                this.name = name;
+                this.role = role;
+            }
+            
+            User.prototype = {
+                getName:function(){
+                    return this.name;
+                },
+                getRole:function(){
+                    return this.role;
+                },
+                isAdmin:function(){
+                    if(this.getRole() === 'admin'){
+                        return true;
+                    }
+                    
+                    return false;
+                }
+            }
+            
+            var UserController = function( $scope){
+                $scope.users = [];
+                $scope.addUser = function(user){
+                    var newUser = new User(user.name, user.role);
+                    $scope.users.push(newUser);
+                }
+            };
+            
+            UserController.$inject = ['$scope'];
+            DemoApp.controller('UserController', UserController);
+            
+        </script>
+    </body>
+</html>
