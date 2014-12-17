@@ -24,6 +24,7 @@ and open the template in the editor.
         <div>
             <h2>测试model</h2>
             <div ng-controller="UserController">
+                {{title}} <button ng-click="title='aaaaaaa'">toA</button>
                 <form>
                     name: <input ng-model="user.name"/> role:<input ng-model="user.role"/> 
                     <button ng-click="addUser(user)">add</button>
@@ -40,7 +41,7 @@ and open the template in the editor.
         <script>
             var DemoApp = angular.module('DemoApp', []);
             
-            DemoApp.factory('alert',['$window',function($window){
+            DemoApp.factory('superAlert',['$window',function($window){
                 var count = 0;
                 return function(){
                     count++;
@@ -48,25 +49,25 @@ and open the template in the editor.
                 };
             }]);
             /////////////////开始闭包测试///////////////
-            var AlertController = function(alert, $scope, $window){
+            var AlertController = function(superAlert, $scope, $window){
                 $scope.alert = function(){
-                    alert();
+                    superAlert();
                 };
             };
-            AlertController.$inject = ['alert', '$scope', '$window'];
+            AlertController.$inject = ['superAlert', '$scope', '$window'];
 //            
-            var AlertExController = function(alert, $scope, $window){
+            var AlertExController = function(superAlert, $scope, $window){
                 $scope.alert = function(){
-                    alert();
+                    superAlert();
                 };
             };
-            AlertExController.$inject = ['alert', '$scope', '$window'];
+            AlertExController.$inject = ['superAlert', '$scope', '$window'];
             
             DemoApp.controller('AlertController', AlertController);
             DemoApp.controller('AlertExController', AlertExController);
             /////////////////结束闭包测试///////////////
             
-            ////////////////开始model测试//////////////
+            ////////////////开始Domain//////////////
             var User = function(name, role){
                 this.name = name;
                 this.role = role;
@@ -88,15 +89,26 @@ and open the template in the editor.
                 }
             }
             
-            var UserController = function( $scope){
+            var UserController = function( $scope, $timeout, $interval){
+                $scope.title = 'UserController';
                 $scope.users = [];
                 $scope.addUser = function(user){
                     var newUser = new User(user.name, user.role);
                     $scope.users.push(newUser);
                 }
+                
+                var count = 0;
+                $interval(function(){
+                    if(count++ % 2 === 0){
+                        $scope.title = 'UserController';
+                    }else{
+                        $scope.title = 'Done';
+                    }
+                    
+                },1000);
             };
             
-            UserController.$inject = ['$scope'];
+            UserController.$inject = ['$scope', '$timeout', '$interval'];
             DemoApp.controller('UserController', UserController);
             
         </script>
